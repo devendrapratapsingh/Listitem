@@ -62,7 +62,7 @@
           
          <ion-delete-button ng-show="showDelete" class="ion-minus-circled" ng-click="empList.splice($index,1)">
             </ion-delete-button> {{emp.empName}} 
-            <div class="buttons"> <button class="button" ng-click="updateEmp(emp,$index)">
+            <div class="buttons"> <button class="button" ng-click="updateEmp(emp,$index,empForm.$valid)">
            Update
           </button>
             </div>
