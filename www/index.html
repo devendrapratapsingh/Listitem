@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="ionicApp">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+  <title>Ionic-AngularJS-Cordova</title>
+
+  <!-- Ionic framework - replace the CDN links with local files and build -->    
+  <link href="lib/ionicframework/ionic.min.css" rel="stylesheet">
+  <script src="lib/ionicframework/ionic.bundle.min.js"></script>
+    
+  <script src="js/app.js"></script>
+    
+  <script src="cordova.js"></script>
+
+  <style>
+      .box {height:300px;padding: 10px}
+  </style>      
+</head>
+
+<body ng-controller="AppCtrl">
+<!-- HEADER PART START-->
+    <ion-header-bar class="bar-positive">
+        <div class="buttons"> <button class="button" ng-click ="showDelete = !showDelete ; ">
+          Edit
+          </button>
+          </div>
+      <h1 class="title">Title {{ empForm.$valid}}</h1>
+    
+     <div class="buttons"> <button class="button" ng-click="addEmp()" ng-disabled="disable">
+           Add-{{disable}}
+          </button>
+          </div>
+    </ion-header-bar>
+   <!-- HEADER PART END-->
+    
+    <ion-content padding="true">
+        <span style="display:hidden">{{ disable = empForm.$valid }} </span>
+        <ng-form name="empForm">
+          <label class="item item-input">
+          <input type="text" placeholder='mayank' ng-model="emp.empCode" name="empcode" ng-pattern="/[a-z0-9]+/i" ng-required="true">
+<!--        <p ng-show="empcodeError" style="color:red">{{empCodeErrorMsg}}</p>   -->
+              <p ng-show="empForm.empcode.$error.pattern" style="color:red">Please enter valid Alphanumeric.</p>
+              <p ng-show="empForm.empcode.$error.required" style="color:red">emp code is required.</p>
+              
+          </label>
+         
+          <label class="item item-input ">
+          <input type="text" placeholder='empName' ng-model="emp.empName" name="empname" ng-required="true">
+                  <p ng-show="empForm.empname.$error.pattern" style="color:red">Please enter valid Alphanumeric.</p>
+              <p ng-show="empForm.empname.$error.required" style="color:red">emp code is required.</p>
+             
+              
+          </label>
+      </ng-form>
+        
+     <ion-list show-delete="!showDelete"> 
+       
+        <ion-item ng-repeat="emp in empList "class="item-button-right">
+          
+         <ion-delete-button ng-show="showDelete" class="ion-minus-circled" ng-click="empList.splice($index,1)">
+            </ion-delete-button> {{emp.empName}} 
+            <div class="buttons"> <button class="button" ng-click="updateEmp(emp,$index)">
+           Update
+          </button>
+            </div>
+           
+         </ion-item>
+         
+      </ion-list>
+    </ion-content>
+
+</body>
+</html>
